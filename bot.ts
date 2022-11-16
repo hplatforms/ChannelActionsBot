@@ -89,7 +89,7 @@ bot
       parse_mode: "HTML",
       reply_markup: new InlineKeyboard()
         .text(ctx.t("usage-help"), "helper").row()
-        .url(ctx.t("updates"), "https://t.me/BotzHub"),
+        .url(ctx.t("updates"), "https://t.me/dublajflix"),
       disable_web_page_preview: true,
     });
     await addUser(ctx.from.id);
@@ -98,9 +98,10 @@ bot
 bot.callbackQuery("helper", async (ctx) => {
   await ctx.editMessageText(
     ctx.t("help") +
-      "\n\nTo approve members who are already in waiting list, upgrade to premium for 3$ per month! Contact @xditya_bot if interested.",
+      "\n\nHalihazırda bekleme listesinde olan üyeleri onaylamak için ayda 3$ ödeyerek premium üye olun!  İlgileniyorsanız @xditya_bot ile iletişime geçin
+.",
     {
-      reply_markup: new InlineKeyboard().text("Main Menu 📭", "start"),
+      reply_markup: new InlineKeyboard().text("Ana Menü 📭", "start"),
       parse_mode: "HTML",
     },
   );
@@ -113,7 +114,7 @@ bot.callbackQuery("start", async (ctx) => {
       {
         reply_markup: new InlineKeyboard()
           .text(ctx.t("usage-help"), "helper").row()
-          .url(ctx.t("updates"), "https://t.me/BotzHub"),
+          .url(ctx.t("updates"), "https://t.me/dublajflix"),
         disable_web_page_preview: true,
         parse_mode: "HTML",
       },
@@ -253,9 +254,9 @@ bot.on("chat_join_request", async (ctx) => {
   const settings = await getSettings(update.chat.id);
   let approve_or_not, welcome;
   const def_welcome_approve =
-    "Hey {name}, your request to join {chat} has been approved!";
+    "Hey {name}, {chat} katılma isteğin onaylandı!\n\n**@dublajflix**\n**@hdfilmmerkezi**";
   const def_welcome_decline =
-    "Hey {name}, your request to join {chat} has been declined!";
+    "Hey {name}, {chat} katılma isteğin reddedildi!";
 
   if (settings == null) {
     approve_or_not = true;
@@ -284,7 +285,7 @@ bot.on("chat_join_request", async (ctx) => {
     return;
   }
 
-  welcome += "\n\nSend /start to know more!";
+  welcome += "\n\nDaha fazlasını görmek için /start yaz!";
   welcome = welcome.replace("{name}", update.from.first_name).replace(
     "{chat}",
     update.chat.title,
@@ -310,7 +311,7 @@ bot
   .filter((ctx) => owners.includes(ctx.from?.id ?? 0))
   .chatType("private")
   .command("stats", async (ctx) => {
-    const reply = await ctx.reply("Calculating...");
+    const reply = await ctx.reply("Hesaplanıyor...");
     await bot.api.editMessageText(
       ctx.from.id,
       reply.message_id,
@@ -325,14 +326,14 @@ bot.command("setlang", async (ctx) => {
   for (const loc of i18n.locales) locales += "- `" + loc + "`\n";
   if (ctx.match === "") {
     return await ctx.reply(
-      "_Specify a locale!_\n\n*Available locales:*\n" + locales,
+      "_Bir yerel ayar belirtin!_\n\n*Mevcut yerel ayarlar:*\n" + locales,
       { parse_mode: "Markdown" },
     );
   }
 
   if (!i18n.locales.includes(ctx.match)) {
     return await ctx.reply(
-      "_Invalid locale code._\n\n*Available locales:*\n" + locales,
+      "_Geçersiz yerel ayar kodu._\n\n*Mevcut yerel ayarlar:*\n" + locales,
       { parse_mode: "Markdown" },
     );
   }
@@ -349,4 +350,4 @@ bot.command("setlang", async (ctx) => {
 
 await bot.init();
 console.info(`Started Bot - @${bot.botInfo.username}`);
-console.info("\nDo join @BotzHub!\nBy - @xditya.\n");
+console.info("\nKatılın @dublajflix!\nBy - @hplatformsadmin.\n");

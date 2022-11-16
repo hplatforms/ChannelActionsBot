@@ -98,8 +98,7 @@ bot
 bot.callbackQuery("helper", async (ctx) => {
   await ctx.editMessageText(
     ctx.t("help") +
-      "\n\nHalihazırda bekleme listesinde olan üyeleri onaylamak için ayda 3$ ödeyerek premium üye olun!  İlgileniyorsanız @xditya_bot ile iletişime geçin
-.",
+      "\n\nHalihazırda bekleme listesinde olan üyeleri onaylamak için ayda 3$ ödeyerek premium üye olun!  İlgileniyorsanız @xditya_bot ile iletişime geçin.",
     {
       reply_markup: new InlineKeyboard().text("Ana Menü 📭", "start"),
       parse_mode: "HTML",
